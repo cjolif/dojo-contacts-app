@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!--
+		<link rel="apple-touch-icon-precomposed" href="images/todolist.png"/>
+		<link rel="apple-touch-startup-image" href="images/todo-splash.png" />-->
+		<title>Contacts App</title>
+		<script type="text/javascript" src="../../dojo/dojo.js"
+				data-dojo-config="async: true">
+		</script>
+		<script>
+			require(["dojox/app/main", "dojo/sniff", "dojo/json", "dojo/text!./config.json"],
+				function(Application, has, json, config){
+                    has.add("html5history", has("ie") && (has("ie") <= 9));
+                    Application(json.parse(config));
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

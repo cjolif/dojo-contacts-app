@@ -1,0 +1,34 @@
+{
+	"id": "contactsApp",
+	"loaderConfig": {
+		"paths": {
+			"contactsApp": "contactsApp"
+		}
+	},
+	"dependencies": [
+	],
+	"modules": [
+	],
+	"controllers": [
+		"dojox/app/controllers/Load",
+		"dojox/app/controllers/Transition",
+		"dojox/app/controllers/Layout"
+	],
+	"has": {
+		"html5history": {
+			"controllers": [
+				"dojox/app/controllers/History"
+			]
+		},
+		"!html5history": {
+			"controllers": [
+				"dojox/app/controllers/HistoryHash"
+			]
+		}
+	},
+	"defaultView": "main",
+	"views": {
+		"main": {
+		}
+	}
+}
