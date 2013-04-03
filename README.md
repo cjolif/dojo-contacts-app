@@ -17,7 +17,7 @@ This project requires the following other projects to run:
 
 ## Installation
 
-* Manual installation of by dropping contactsApp as a children of the Dojo demos directory:
+* Manual installation by dropping contactsApp as a children of the Dojo demos directory:
  * contactsApp
  * dojo
  * dijit
@@ -33,4 +33,4 @@ This project requires the following other projects to run:
 ## Credits
 
 * Christophe Jolif (IBM CCLA, committer)
-* Ed Chatelain (IBM CCLA, contributor)
+* Ed Chatelain (IBM CCLA, committer)
