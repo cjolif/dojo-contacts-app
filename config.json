@@ -2,10 +2,11 @@
 	"id": "contactsApp",
 	"loaderConfig": {
 		"paths": {
-			"contactsApp": "contactsApp"
+			"contactsApp": "../contactsApp"
 		}
 	},
 	"dependencies": [
+			"contactsApp/ContactsStore"
 	],
 	"modules": [
 	],
@@ -26,9 +27,16 @@
 			]
 		}
 	},
-	"defaultView": "main",
+	"stores": {
+		"contacts": {
+			"type": "contactsApp/ContactsStore"
+		}
+	},
+	"defaultView": "list",
 	"views": {
-		"main": {
+		"list": {
+			"controller": "contactsApp/list",
+			"template": "contactsApp/list.html"
 		}
 	}
 }

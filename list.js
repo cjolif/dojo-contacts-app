@@ -1,0 +1,1 @@
+define(["dojox/mobile/EdgeToEdgeStoreList"], {});
