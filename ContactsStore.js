@@ -1,23 +1,5 @@
-define(["dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/store/Memory", "dojo/store/util/QueryResults"],
-	function(declare, lang, Deferred, Memory, QueryResults){
-
-	var onFind = function(deferred, contacts){
-		deferred.resolve(contacts);
-	};
-
-	var onFindId = function(deferred, id, contacts){
-		for(var i = 0; i< contacts.length; i++){
-			if(contacts[i]["id"] == id){
-				deferred.resolve(contacts[i]);
-				return;
-			}
-		}
-		deferred.reject(new Error(this.idProperty + " not match."));
-	};
-
-	var onError = function(deferred, error){
-		deferred.reject(error);
-	};
+define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/Memory", "dojo/store/util/QueryResults"],
+	function(declare, array, Deferred, Memory, QueryResults){
 
 	return declare(null, {
 		// summary:
@@ -30,6 +12,8 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/store/Me
 			// summary:
 			//		Creates a contacts object store.
 			declare.safeMixin(this, options);
+			this._memory = new Memory();
+			this._memory.setData(this.data || []);
 		},
 
 		get: function(id, options){
@@ -37,58 +21,51 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/store/Me
 			//		Retrieves an object by its identity.
 			//	id: Number
 			//		The identity to use to lookup the object
+			//	options: Object
+			//		Accepts contactFields property
 			//	returns: Object
 			//		The object in the store that matches the given id.
 			var deferred = new Deferred();
-			this.find((options && options.contactFields) || this.contactFields,
-				lang.partial(onFindId, deferred, id),
-				lang.partial(onError, deferred),
-				id);
-			return deferred;
-		},
-
-		getIdentity: function(object){
-			// summary:
-			//		Returns an object's identity
-			// object: Object
-			//		The object to get the identity from
-			//	returns: Number
-			return object["id"];
+			this._find((options && options.contactFields) || this.contactFields,
+				function(contacts){
+					// search is by keyword on all fields, so we need to double check
+					// we did not get false positive results
+					for(var i = 0; i < contacts.length; i++){
+						if(contacts[i]["id"] == id){
+							deferred.resolve(contacts[i]);
+							return;
+						}
+					}
+					deferred.reject(new Error(this.idProperty + " not match."));
+				},
+				deferred, id);
+			return deferred.promise;
 		},
 
 		query: function(query, options){
 			var deferred = new Deferred();
-			this.find((options && options.contactFields) || this.contactFields,
-				lang.partial(onFind, deferred),
-				lang.partial(onError, deferred),
-				query?query:"");
-			return new QueryResults(deferred);
+			this._find((options && options.contactFields) || this.contactFields,
+				function(contacts){
+					deferred.resolve(contacts);
+				},
+				deferred, query?query:"");
+			// TODO: what about queryEngine?
+			return new QueryResults(deferred.promise);
 		},
 
+		_memory: null,
 
-		memory: null,
-
-		constructor: function(kwArgs){
-			// summary:
-			//		Creates a memory object store.
-			this.contactFields = ["id", "displayName", "name", "phoneNumbers", "emails", "addresses"];
-			contactsObj = this;
-			ContactFindOptionsClass = function(filter, multiple){
-				this.filter = filter || "";
-				this.multiple = multiple || true;
-			};
-			this.inherited(arguments);
-			this.memory = new Memory();
-			this.memory.setData(this.data || []);
+		getIdentity: function(object){
+			return this._memory.getIdentity(object);
 		},
 
-		find: function(fields, onFindSuccess, onFindError, options){
+		_find: function(fields, success, deferred, options){
 			try{
-				var _data = this.memory.data;
+				var _data = this._memory.data;
 				fields = fields.length == 0 ? ["id"] : fields;
 				var datas = [];
 				// gather fields
-				array.forEach(_data, function(item, i){
+				array.forEach(_data, function(item){
 					var obj = {};
 					for(var key in item){
 						if(fields[0] === "*" || array.indexOf(fields, key) !== -1){
@@ -99,7 +76,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/store/Me
 				});
 
 				//Search value recursively
-				var regexp = new RegExp("^" + options.filter || ".*" + "$", "i");
+				var regexp = new RegExp("^" + (options.filter || ".*" + "$"), "i");
 				function search(item){
 					for(var key in item){
 						switch(typeof item[key]){
@@ -119,52 +96,31 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/store/Me
 				}
 				var ret=[];
 				var _multiple = options.multiple;
-				array.forEach(datas, function(item, i){
+				array.forEach(datas, function(item){
 					if(search(item)){
 						ret.push(item);
 						if(!_multiple){
+							// TODO fix this
 							return;
 						}
 					}
 				});
-				setTimeout(onFindSuccess(ret));
+				success(ret);
 			}catch(e){
-				setTimeout(onFindError(e));
+				deferred.reject(e);
 			}
 		},
 
 		put: function(object){
-			var id = this.getIdentity(object);
-			var hasId = typeof id != "undefined";
-			if(hasId){
-				this.memory.put(object);
-			}else{
-				var err = new Error(this.idProperty + " is not exist.");
-			}		},
-
-		add: function(object){
-			var id = this.getIdentity(object);
-			var hasId = typeof id != "undefined";
-			if(hasId){
-				this.memory.put(object);
-			}else{
-				id = this.memory.add(object);
-				object[this.idProperty] = id.toString();
-				this.memory.put(object);
-			}
-			this.onSaveSuccess(object);
+			this._memory.put(object);
 		},
 
-		remove: function(object){
-			var id = this.getIdentity(contact);
-			var hasId = typeof id != "undefined";
-			if(hasId){
-				this.memory.remove(id);
-				this.onRemoveSuccess(object);
-			}else{
-				var err = new Error(this.idProperty + " not found.");
-				this.onRemoveError(err);
-			}
+		add: function(object){
+			this._memory.add(object);
+		},
+
+		remove: function(id){
+			this._memory.remove(id);
 		}
 	});
 });

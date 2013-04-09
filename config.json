@@ -29,7 +29,21 @@
 	},
 	"stores": {
 		"contacts": {
-			"type": "contactsApp/ContactsStore"
+			"type": "contactsApp/ContactsStore",
+			"params": {
+				"data": [
+					{
+						"id": "1",
+						"displayName": "Ed Chatelain",
+						"name": "edchat"
+					},
+					{
+						"id": "2",
+						"displayName": "Christophe Jolif",
+						"name": "cjolif"
+					}
+				]
+			}
 		}
 	},
 	"defaultView": "list",
