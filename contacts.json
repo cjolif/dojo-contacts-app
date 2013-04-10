@@ -50,7 +50,8 @@
 	"views": {
 		"list": {
 			"controller": "contactsApp/list",
-			"template": "contactsApp/list.html"
+			"template": "contactsApp/list.html",
+			"nls": "contactsApp/nls/list"
 		},
 		"detail": {
 			"controller": "contactsApp/detail",
