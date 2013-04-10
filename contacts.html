@@ -7,12 +7,13 @@
 		<link rel="apple-touch-icon-precomposed" href="images/todolist.png"/>
 		<link rel="apple-touch-startup-image" href="images/todo-splash.png" />-->
 		<title>Contacts App</title>
+		<link href="contacts.css">
 		<script type="text/javascript" src="../dojox/mobile/deviceTheme.js"></script>
 		<script type="text/javascript" src="../dojo/dojo.js"
 				data-dojo-config="async: true">
 		</script>
 		<script>
-			require(["dojox/app/main", "dojo/sniff", "dojo/json", "dojo/text!./config.json", "dojox/mobile/common"],
+			require(["dojox/app/main", "dojo/sniff", "dojo/json", "dojo/text!./contacts.json", "dojox/mobile/common"],
 				function(Application, has, json, config){
 					// populate has flag on whether html5 history is correctly supported or not
 					has.add("html5history", has("ie") && (has("ie") <= 9));

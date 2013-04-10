@@ -51,6 +51,11 @@
 		"list": {
 			"controller": "contactsApp/list",
 			"template": "contactsApp/list.html"
+		},
+		"detail": {
+			"controller": "contactsApp/detail",
+			"template": "contactsApp/detail.html",
+			"nls": "contactsApp/nls/detail"
 		}
 	}
 }
