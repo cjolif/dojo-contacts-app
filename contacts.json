@@ -6,7 +6,10 @@
 		}
 	},
 	"dependencies": [
-			"contactsApp/ContactsStore"
+			"contactsApp/ContactsStore",
+			"dojox/mobile/Heading",
+			"dojox/mobile/ScrollableView",
+			"dojox/mobile/ToolbarButton"
 	],
 	"modules": [
 	],
@@ -27,6 +30,7 @@
 			]
 		}
 	},
+	"defaultTransition": "slide",
 	"stores": {
 		"contacts": {
 			"type": "contactsApp/ContactsStore",

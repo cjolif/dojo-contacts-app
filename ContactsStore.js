@@ -16,17 +16,15 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 			this._memory.setData(this.data || []);
 		},
 
-		get: function(id, options){
+		get: function(id){
 			//	summary:
 			//		Retrieves an object by its identity.
-			//	id: Number
+			//	id: String|Number
 			//		The identity to use to lookup the object
-			//	options: Object
-			//		Accepts contactFields property
 			//	returns: Object
 			//		The object in the store that matches the given id.
 			var deferred = new Deferred();
-			this._find((options && options.contactFields) || this.contactFields,
+			this._find([id],
 				function(contacts){
 					// search is by keyword on all fields, so we need to double check
 					// we did not get false positive results
@@ -44,11 +42,11 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 
 		query: function(query, options){
 			var deferred = new Deferred();
-			this._find((options && options.contactFields) || this.contactFields,
+			this._find(query?query:"",
 				function(contacts){
 					deferred.resolve(contacts);
 				},
-				deferred, query?query:"");
+				deferred, options);
 			// TODO: what about queryEngine?
 			return new QueryResults(deferred.promise);
 		},
@@ -59,10 +57,10 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 			return this._memory.getIdentity(object);
 		},
 
-		_find: function(fields, success, deferred, options){
+		_find: function(query, success, deferred, options){
 			try{
 				var _data = this._memory.data;
-				fields = fields.length == 0 ? ["id"] : fields;
+				var fields = (options && options.contactFields) || this.contactFields;
 				var datas = [];
 				// gather fields
 				array.forEach(_data, function(item){
@@ -76,7 +74,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 				});
 
 				//Search value recursively
-				var regexp = new RegExp("^" + (options.filter || ".*" + "$"), "i");
+				var regexp = new RegExp("^" + ((query && query.toString()) || ".*" + "$"), "i");
 				function search(item){
 					for(var key in item){
 						switch(typeof item[key]){
@@ -94,12 +92,12 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 					}
 					return false;
 				}
-				var ret=[];
-				var _multiple = options.multiple;
+				var ret = [];
+				var multiple = (options && options.hasOwnProperty("multiple"))?options.multiple:true;
 				array.forEach(datas, function(item){
 					if(search(item)){
 						ret.push(item);
-						if(!_multiple){
+						if(!multiple){
 							// TODO fix this
 							return;
 						}

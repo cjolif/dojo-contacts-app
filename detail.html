@@ -1,16 +1,26 @@
 <div>
-	<div data-dojo-type="dojox/mobile/FormLayout">
-		<div>
-          	<label for="phone-home">${nls.home}</label>
-        	<fieldset>
-				<span id="home" class="readonly"></span>
-            	<input id="phone-home" name="phone-home" data-dojo-type="dojox/mobile/TextArea" class="edit">
-			</fieldset>
-			<label for="phone-work">${nls.work}</label>
-   			<fieldset>
-  				<span id="work" class="readonly"></span>
-           		<input  id="phone-work" name="phone-work" data-dojo-type="dojox/mobile/TextArea" class="edit">
-   			</fieldset>
-	   </div>
+	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">
+		<button data-dojo-type="dojox/mobile/ToolbarButton"
+				data-dojo-attach-point="backButton"
+				data-dojo-props="arrow: 'left', back: true"
+				style="position: absolute; left: 0"></button>
+		${nls.details}
+		<button data-dojo-type="dojox/mobile/ToolbarButton" style="position: absolute; right: 0">${nls.edit}</button>
+	</div>
+	<div data-dojo-type="dojox/mobile/ScrollableView">
+		<div data-dojo-type="dojox/mobile/FormLayout">
+			<div>
+          		<label for="phone-home">${nls.home}</label>
+        		<fieldset>
+					<span id="home" class="readonly"></span>
+	            	<input id="phone-home" name="phone-home" data-dojo-type="dojox/mobile/TextArea" class="edit">
+				</fieldset>
+				<label for="phone-work">${nls.work}</label>
+	   			<fieldset>
+  					<span id="work" class="readonly"></span>
+        	   		<input  id="phone-work" name="phone-work" data-dojo-type="dojox/mobile/TextArea" class="edit">
+	   			</fieldset>
+		   </div>
+		</div>
 	</div>
 </div>

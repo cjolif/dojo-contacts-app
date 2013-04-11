@@ -5,7 +5,9 @@ define({
 		cell: "Cell",
 		first: "Firstname",
 		last: "Lastname",
-		company: "Company"
+		company: "Company",
+		details: "Details",
+		edit: "Edit"
 	},
 	fr: true
 });

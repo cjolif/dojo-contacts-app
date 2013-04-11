@@ -4,5 +4,7 @@ define({
 	cell: "Portal",
 	first: "Prénom",
 	last: "Nom",
-	company: "Société"
+	company: "Société",
+	details: "Infos",
+	edit: "Modifier"
 });

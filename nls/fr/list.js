@@ -1,3 +1,5 @@
 define({
-	search: "Rechercher"
+	search: "Rechercher",
+	contacts: "Contacts",
+	add: "Ajouter"
 });
