@@ -1,0 +1,5 @@
+{
+	"name": "contactsApp",
+	"version": "0.5",
+	"dojoBuild": "contacts.profile.js"
+}
