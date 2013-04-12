@@ -18,19 +18,8 @@
 		"dojox/app/controllers/Transition",
 		"dojox/app/controllers/Layout"
 	],
-	"has": {
-		"html5history": {
-			"controllers": [
-				"dojox/app/controllers/History"
-			]
-		},
-		"!html5history": {
-			"controllers": [
-				"dojox/app/controllers/HistoryHash"
-			]
-		}
-	},
 	"defaultTransition": "slide",
+	"defaultView": "list",
 	"stores": {
 		"contacts": {
 			"type": "contactsApp/ContactsStore",
@@ -39,7 +28,16 @@
 					{
 						"id": "1",
 						"displayName": "Ed Chatelain",
-						"name": "edchat"
+						"phoneNumbers": [
+							{
+								"type": "home",
+								"value": "10-20"
+							},
+							{
+								"type": "work",
+								"value": "10-21"
+							}
+						]
 					},
 					{
 						"id": "2",
@@ -50,7 +48,6 @@
 			}
 		}
 	},
-	"defaultView": "list",
 	"views": {
 		"list": {
 			"controller": "contactsApp/list",
@@ -61,6 +58,21 @@
 			"controller": "contactsApp/detail",
 			"template": "contactsApp/detail.html",
 			"nls": "contactsApp/nls/detail"
+		}
+	},
+	"has": {
+		"html5history": {
+			"controllers": [
+				"dojox/app/controllers/History"
+			]
+		},
+		"!html5history": {
+			"controllers": [
+				"dojox/app/controllers/HistoryHash"
+			]
+		},
+		"!phone": {
+			"defaultView": "list+detail"
 		}
 	}
 }

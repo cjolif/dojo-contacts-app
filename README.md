@@ -17,7 +17,7 @@ This project requires the following other projects to run:
 
 ## Installation
 
-* Manual installation by dropping contactsApp as a children of the Dojo demos directory:
+* Manual installation by dropping contactsApp as a sibling of the Dojo dojo directory:
  * contactsApp
  * dojo
  * dijit

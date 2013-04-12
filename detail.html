@@ -11,14 +11,14 @@
 		<div data-dojo-type="dojox/mobile/FormLayout">
 			<div>
           		<label for="phone-home">${nls.home}</label>
-        		<fieldset>
+        		<fieldset data-dojo-attach-point="phonehome">
 					<span id="home" class="readonly"></span>
 	            	<input id="phone-home" name="phone-home" data-dojo-type="dojox/mobile/TextArea" class="edit">
 				</fieldset>
 			</div>
 			<div>
 				<label for="phone-work">${nls.work}</label>
-	   			<fieldset>
+	   			<fieldset data-dojo-attach-point="phonework">
   					<span id="work" class="readonly"></span>
         	   		<input  id="phone-work" name="phone-work" data-dojo-type="dojox/mobile/TextArea" class="edit">
 	   			</fieldset>

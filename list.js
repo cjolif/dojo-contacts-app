@@ -2,7 +2,15 @@ define(["dojo/_base/declare", "dojox/mobile/ListItem", "dojox/mobile/EdgeToEdgeS
 	function(declare, ListItem){
 	var ContactListItem = declare(ListItem, {
 		target: "detail",
-		clickable: true
+		clickable: true,
+		buildRendering: function(){
+			this.inherited(arguments);
+			this.transitionOptions = {
+				params: {
+					"id" : this.id
+				}
+			}
+		}
 	});
 
 	return {
