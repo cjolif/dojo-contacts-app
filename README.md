@@ -14,6 +14,7 @@ This project requires the following other projects to run:
  * dijit
  * dojox/app
  * dojox/mobile
+ * (optional, useful only if you want to build the app) util
 
 ## Installation
 

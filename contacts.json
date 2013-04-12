@@ -61,7 +61,12 @@
 		"list": {
 			"controller": "contactsApp/list",
 			"template": "contactsApp/list.html",
-			"nls": "contactsApp/nls/list"
+			"nls": "contactsApp/nls/list",
+			"has": {
+				"!phone": {
+					"constraint": "left"
+				}
+			}
 		},
 		"detail": {
 			"controller": "contactsApp/detail",
