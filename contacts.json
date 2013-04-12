@@ -9,7 +9,7 @@
 			"contactsApp/ContactsStore",
 			"dojox/mobile/Heading",
 			"dojox/mobile/ScrollableView",
-			"dojox/mobile/ToolbarButton"
+			"dojox/mobile/ToolBarButton"
 	],
 	"modules": [
 	],
