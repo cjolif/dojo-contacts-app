@@ -31,18 +31,27 @@
 						"phoneNumbers": [
 							{
 								"type": "home",
-								"value": "10-20"
+								"value": "10-20-30-40"
 							},
 							{
 								"type": "work",
-								"value": "10-21"
+								"value": "11-22-33-44"
 							}
 						]
 					},
 					{
 						"id": "2",
 						"displayName": "Christophe Jolif",
-						"name": "cjolif"
+						"phoneNumbers": [
+							{
+								"type": "home",
+								"value": "11-43-81-63-19"
+							},
+							{
+								"type": "work",
+								"value": "11-48-07-13-38"
+							}
+						]
 					}
 				]
 			}

@@ -28,6 +28,15 @@ This project requires the following other projects to run:
 
  git clone git://github.com/cjolif/dojo-contacts-app.git contactsApp
 
+## Build
+
+You can build the contacts application by running the following command from util/buildscripts:
+
+./build.sh --profile ../../contactsApp/build/build.profile.js --appConfigFile ../../contactsApp/contacts.json
+
+This will make sure all the files needed by this application are bundled into compressed layers. The result can be
+found in contactsApp-release/contactsApp
+
 ## Documentation
 
 ## Credits
