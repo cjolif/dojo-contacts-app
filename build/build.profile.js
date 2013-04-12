@@ -8,6 +8,7 @@ var profile = {
 	releaseDir: "./contactsApp-release",
 	action: "release",
 	cssOptimize: "comments",
+	mini: true,
 	packages:[{
 		name: "dojo",
 		location: "./dojo"
@@ -21,9 +22,14 @@ var profile = {
 		name: "dojox",
 		location: "./dojox"
 	}],
+	selectorEngine: "acme",
 	layers: {
+		"dojo/dojo": {
+			boot: true,
+			customBase: true
+		},
 		"contactsApp/contacts": {
-			include: [ "contactsApp/contacts.html" ]
+			include: ["contactsApp/contacts"]
 		}
 	}
 };
