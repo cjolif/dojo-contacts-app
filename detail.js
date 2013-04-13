@@ -19,7 +19,7 @@ define(["dojo/_base/array", "dojo/has", "dojo/when", "dojox/mobile/Button", "doj
 				when(promise, function(contact){
 					// set each phone number to corresponding field
 					array.forEach(contact.phoneNumbers, function(number){
-						view["phone"+number.type].getElementsByTagName("span")[0].innerHTML = number.value;
+						view["phone"+number.type].set("value",  number.value);
 					});
 				});
 			}
