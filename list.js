@@ -5,7 +5,7 @@ define(["dojo/_base/declare", "dojo/has", "dojox/mobile/ListItem", "dojox/mobile
 		clickable: true,
 		// we don't get an arrow if we are on a two panes layout (tablet)
 		noArrow: !has("phone"),
-		buildRendering: function(){
+		postMixInProperties: function(){
 			this.inherited(arguments);
 			this.transitionOptions = {
 				params: {
