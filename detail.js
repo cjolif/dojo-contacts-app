@@ -6,19 +6,13 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 		"phonehome": "phoneNumbers.home",
 		"phonework": "phoneNumbers.work",
 		"mailhome": "emails.home",
-		"mailwork": "emails.work",
-		"company": "organizations.[0]"
+		"mailwork": "emails.work"
 	};
 
 	var getStoreField = function(arr, type){
-		var index = -1;
-		if(type === "[0]"){
-			index = arr.length > 0?0:-1;
-		}else{
-			index = array.indexOf(arr, function(item){
-				return (item.type == type);
-			});
-		}
+		var index = array.indexOf(arr, function(item){
+			return (item.type == type);
+		});
 		if(index == -1){
 			// create one
 			arr.push({
@@ -43,7 +37,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// are we in edit mode or not? if we are we need to slightly update the view for that
 			var edit = this.params.edit;
 			// change widgets readonly value based on that
-			query("input").forEach(function(node){
+			query("input", this.domNode).forEach(function(node){
 				registry.byNode(node).set("readOnly", !edit);
 			});
 			// in edit mode change the label and params of the edit button
@@ -69,30 +63,39 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			}
 
 			// let's fill the form with the currently selected contact
-			// if nothing selected skip that part (TODO: empty fields)
+			// if nothing selected skip that part
 			var view = this;
+			var promise = null;
 			if(typeof id !== "undefined"){
 				id = id.toString();
 				// get the contact on the store
-				var promise = this.loadedStores.contacts.get(id);
-				when(promise, function(contact){
-					view.firstname.set("value", contact.name.givenName);
-					view.lastname.set("value", contact.name.familyName);
-					if(contact.organizations && contact.organizations.length){
-						view.company.set("value", contact.organizations[0].name);
-					}
+				promise = this.loadedStores.contacts.get(id);
+			}
+			when(promise, function(contact){
+				view.firstname.set("value", contact ? contact.name.givenName : null);
+				view.lastname.set("value", contact ? contact.name.familyName : null);
+				if(contact && contact.organizations && contact.organizations.length){
+					view.company.set("value", contact.organizations[0].name);
+				}else{
+					view.company.set("value", null);
+				}
+				// reset binding fields
+				for(var key in DATA_MAPPING){
+					view[key].set("value", null);
+				}
+				if(contact){
 					// set each phone number to the corresponding form field
 					array.forEach(contact.phoneNumbers, function(number){
-						// TODO deal with the case where we don't support a particular field
+						// TODO deal with case where we don't support a particular field
 						view["phone"+number.type].set("value",  number.value);
 					});
 					// set each mail field to the corresponding form field
 					array.forEach(contact.emails, function(mail){
-						// TODO deal with the case where we don't support a particular field
+						// TODO deal with case where we don't support a particular field
 						view["mail"+mail.type].set("value",  mail.value);
 					});
-				});
-			}
+				}
+			});
 		},
 		_saveForm: function(){
 			var id = this.params.id, view = this;
@@ -113,6 +116,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 		_createContact: function(){
 			var contact = {
 				"id": (Math.round(Math.random()*1000000)).toString(),
+				"name": {},
 				"displayName": "",
 				"phoneNumbers": [],
 				"emails": [],
@@ -137,6 +141,13 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				displayName += " " + value;
 			}
 			contact.displayName = displayName;
+			value = this.company.get("value");
+			if(typeof value !== "undefined"){
+				if(contact.organizations.length == 0){
+					contact.organizations.push({});
+				}
+				contact.organizations[0].name = value;
+			}
 			for(var key in DATA_MAPPING){
 				value = this[key].get("value");
 				if(typeof value !== "undefined"){
