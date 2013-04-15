@@ -15,19 +15,49 @@
 	<div data-dojo-type="dojox/mobile/ScrollableView">
 		<div data-dojo-type="dojox/mobile/FormLayout">
 			<div>
+				<label for="company">${nls.name}</label>
+				<fieldset>
+					<input id="firstname" name="firstname" data-dojo-type="dojox/mobile/TextArea"
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.first}'" data-dojo-attach-point="firstname">
+					<input id="lastname" name="lastname" data-dojo-type="dojox/mobile/TextArea"
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.last}'" data-dojo-attach-point="lastname">
+				</fieldset>
+			</div>
+			<div>
+				<label for="company">${nls.company}</label>
+				<fieldset>
+					<input id="company" name="company" data-dojo-type="dojox/mobile/TextArea"
+						   data-dojo-props="readOnly: true" data-dojo-attach-point="company">
+				</fieldset>
+			</div>
+			<div>
 				<label for="phone-home">${nls.home}</label>
 				<fieldset>
 					<input id="phone-home" name="phone-home" data-dojo-type="dojox/mobile/TextArea"
-						   data-dojo-props="readOnly: true" data-dojo-attach-point="phonehome">
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.phone}'" data-dojo-attach-point="phonehome">
 				</fieldset>
 			</div>
 			<div>
 				<label for="phone-work">${nls.work}</label>
 	   			<fieldset>
         	   		<input id="phone-work" name="phone-work" data-dojo-type="dojox/mobile/TextArea"
-							data-dojo-props="readOnly: true" data-dojo-attach-point="phonework">
+							data-dojo-props="readOnly: true, placeHolder: '${nls.phone}'" data-dojo-attach-point="phonework">
 	   			</fieldset>
 		   </div>
+			<div>
+				<label for="mail-home">${nls.home}</label>
+				<fieldset>
+					<input id="mail-home" name="mail-home" data-dojo-type="dojox/mobile/TextArea"
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.mail}'" data-dojo-attach-point="mailhome">
+				</fieldset>
+			</div>
+			<div>
+				<label for="mail-work">${nls.work}</label>
+				<fieldset>
+					<input id="mail-work" name="mail-work" data-dojo-type="dojox/mobile/TextArea"
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.mail}'" data-dojo-attach-point="mailwork">
+				</fieldset>
+			</div>
 		</div>
 	</div>
 </div>

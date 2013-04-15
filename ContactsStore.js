@@ -6,7 +6,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 		//		This is a basic store for Contacts
 		//		formatted data. It implements dojo/store/api/Store.
 
-		contactFields: ["id", "displayName", "name", "phoneNumbers", "emails", "addresses"],
+		contactFields: ["id", "displayName", "name", "phoneNumbers", "emails", "addresses", "organizations"],
 
 		constructor: function(options){
 			// summary:

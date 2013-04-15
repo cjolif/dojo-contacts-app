@@ -30,6 +30,16 @@
 					{
 						"id": "1",
 						"displayName": "Ed Chatelain",
+						"name": {
+							"givenName": "Edward",
+							"familyName": "Chatelain"
+						},
+						"emails": [
+							{
+								"type": "home",
+								"value": "me@myhome.com"
+							}
+						],
 						"phoneNumbers": [
 							{
 								"type": "home",
@@ -39,11 +49,26 @@
 								"type": "work",
 								"value": "11-22-33-44"
 							}
-						]
+						],
+						"organizations": []
 					},
 					{
 						"id": "2",
 						"displayName": "Christophe Jolif",
+						"name": {
+							"givenName": "Christophe",
+							"familyName": "Jolif"
+						},
+						"emails": [
+							{
+								"type": "home",
+								"value": "him@myhome.com"
+							},
+							{
+								"type": "work",
+								"value": "dev@dev.com"
+							}
+						],
 						"phoneNumbers": [
 							{
 								"type": "home",
@@ -53,7 +78,8 @@
 								"type": "work",
 								"value": "11-48-07-13-38"
 							}
-						]
+						],
+						"organizations": []
 					}
 				]
 			}

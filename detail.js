@@ -4,13 +4,21 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 
 	var DATA_MAPPING = {
 		"phonehome": "phoneNumbers.home",
-		"phonework": "phoneNumbers.work"
+		"phonework": "phoneNumbers.work",
+		"mailhome": "emails.home",
+		"mailwork": "emails.work",
+		"company": "organizations.[0]"
 	};
 
 	var getStoreField = function(arr, type){
-		var index = array.indexOf(arr, function(item){
-			return (item.type == type);
-		});
+		var index = -1;
+		if(type === "[0]"){
+			index = arr.length > 0?0:-1;
+		}else{
+			index = array.indexOf(arr, function(item){
+				return (item.type == type);
+			});
+		}
 		if(index == -1){
 			// create one
 			arr.push({
@@ -68,10 +76,20 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				// get the contact on the store
 				var promise = this.loadedStores.contacts.get(id);
 				when(promise, function(contact){
+					view.firstname.set("value", contact.name.givenName);
+					view.lastname.set("value", contact.name.familyName);
+					if(contact.organizations && contact.organizations.length){
+						view.company.set("value", contact.organizations[0].name);
+					}
 					// set each phone number to the corresponding form field
 					array.forEach(contact.phoneNumbers, function(number){
 						// TODO deal with the case where we don't support a particular field
 						view["phone"+number.type].set("value",  number.value);
+					});
+					// set each mail field to the corresponding form field
+					array.forEach(contact.emails, function(mail){
+						// TODO deal with the case where we don't support a particular field
+						view["mail"+mail.type].set("value",  mail.value);
 					});
 				});
 			}
@@ -96,7 +114,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			var contact = {
 				"id": (Math.round(Math.random()*1000000)).toString(),
 				"displayName": "",
-				"phoneNumbers": []
+				"phoneNumbers": [],
+				"emails": [],
+				"organizations": []
 			};
 			this._saveContact(contact);
 			this.loadedStores.contacts.add(contact);
@@ -104,6 +124,19 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 		_saveContact: function(contact){
 			// set back the values on the contact object
 			var value, keys;
+			// deal with name first
+			var displayName = "";
+			value = this.firstname.get("value");
+			if(typeof value !== "undefined"){
+				contact.name.givenName = value;
+				displayName += value;
+			}
+			value = this.lastname.get("value");
+			if(typeof value !== "undefined"){
+				contact.name.familyName = value;
+				displayName += " " + value;
+			}
+			contact.displayName = displayName;
 			for(var key in DATA_MAPPING){
 				value = this[key].get("value");
 				if(typeof value !== "undefined"){
