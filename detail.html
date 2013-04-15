@@ -4,8 +4,13 @@
 				data-dojo-attach-point="backButton"
 				data-dojo-props="arrow: 'left', back: true"
 				style="position: absolute; left: 0"></button>
+		<button data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-attach-point="cancelButton"
+				style="position: absolute; left: 0; display: 'none'"
+				data-dojo-props="target: 'detail', transitionOptions: { params: { edit: false } }">${nls.cancel}</button>
 		${nls.details}
-		<button data-dojo-type="dojox/mobile/ToolBarButton" style="position: absolute; right: 0">${nls.edit}</button>
+		<button data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-attach-point="editButton"
+				style="position: absolute; right: 0"
+				data-dojo-props="target: 'detail', transitionOptions: { params: { edit: true } }"></button>
 	</div>
 	<div data-dojo-type="dojox/mobile/ScrollableView">
 		<div data-dojo-type="dojox/mobile/FormLayout">

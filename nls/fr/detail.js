@@ -6,5 +6,7 @@ define({
 	last: "Nom",
 	company: "Société",
 	details: "Infos",
-	edit: "Modifier"
+	edit: "Modifier",
+	cancel: "Annuler",
+	ok: "OK"
 });

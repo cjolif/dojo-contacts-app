@@ -7,7 +7,9 @@ define({
 		last: "Lastname",
 		company: "Company",
 		details: "Details",
-		edit: "Edit"
+		edit: "Edit",
+		cancel: "Cancel",
+		ok: "Ok"
 	},
 	fr: true
 });
