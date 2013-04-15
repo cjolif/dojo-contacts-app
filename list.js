@@ -1,6 +1,6 @@
-define(["dojo/_base/declare", "dojo/_base/array", "dojo/aspect", "dojo/has", "dojox/mobile/ListItem",
+define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/ListItem",
 	"dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin"],
-	function(declare, array, aspect, has, ListItem){
+	function(declare, array, has, ListItem){
 	var ContactListItem = declare(ListItem, {
 		target: "detail",
 		clickable: true,
