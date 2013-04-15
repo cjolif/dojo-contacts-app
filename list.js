@@ -1,5 +1,6 @@
-define(["dojo/_base/declare", "dojo/has", "dojox/mobile/ListItem", "dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin"],
-	function(declare, has, ListItem){
+define(["dojo/_base/declare", "dojo/_base/array", "dojo/aspect", "dojo/has", "dojox/mobile/ListItem",
+	"dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin"],
+	function(declare, array, aspect, has, ListItem){
 	var ContactListItem = declare(ListItem, {
 		target: "detail",
 		clickable: true,
@@ -16,6 +17,22 @@ define(["dojo/_base/declare", "dojo/has", "dojox/mobile/ListItem", "dojox/mobile
 	});
 
 	return {
-		ContactListItem: ContactListItem
+		ContactListItem: ContactListItem,
+		init: function(){
+			var view = this;
+			this.contacts.on("add", function(item){
+				// select the newly added element
+				array.some(view.contacts.getChildren(), function(child){
+					if(child.id == item.id){
+						view.contacts.selectItem(child);
+						return true;
+					}
+					return false;
+				});
+			});
+			this.add.on("click", function(){
+				view.contacts.deselectAll();
+			});
+		}
 	};
 });
