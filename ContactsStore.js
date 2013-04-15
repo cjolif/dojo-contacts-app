@@ -34,7 +34,8 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/Deferred", "dojo/store/M
 							return;
 						}
 					}
-					deferred.reject(new Error(this.idProperty + " not match."));
+					// we did not find a contact
+					deferred.resolve(null);
 				},
 				deferred, id);
 			return deferred.promise;

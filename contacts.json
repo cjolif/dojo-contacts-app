@@ -7,6 +7,7 @@
 	},
 	"dependencies": [
 			"contactsApp/ContactsStore",
+			"dojo/store/Observable",
 			"dojox/mobile/Heading",
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/ToolBarButton"
@@ -23,6 +24,7 @@
 	"stores": {
 		"contacts": {
 			"type": "contactsApp/ContactsStore",
+			"observable": true,
 			"params": {
 				"data": [
 					{
