@@ -23,7 +23,7 @@
 	"defaultView": "list",
 	"stores": {
 		"contacts": {
-			"type": "contactsApp/ContactsStore",
+			"type": "dojo/store/Memory",
 			"observable": true,
 			"params": {
 				"data": [
