@@ -6,7 +6,6 @@
 		}
 	},
 	"dependencies": [
-			"dcordova/ContactsStore",
 			"dojo/store/Observable",
 			"dojox/mobile/Heading",
 			"dojox/mobile/ScrollableView",
