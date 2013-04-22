@@ -1,7 +1,6 @@
 define({
 	root: {
-		search: "Search",
-		add: "Add"
+		contacts: "Contacts"
 	},
 	fr: true
 });

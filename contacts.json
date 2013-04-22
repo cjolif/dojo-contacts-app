@@ -6,7 +6,7 @@
 		}
 	},
 	"dependencies": [
-			"contactsApp/ContactsStore",
+			"dcordova/ContactsStore",
 			"dojo/store/Observable",
 			"dojox/mobile/Heading",
 			"dojox/mobile/ScrollableView",
@@ -19,11 +19,17 @@
 		"dojox/app/controllers/Transition",
 		"dojox/app/controllers/Layout"
 	],
+	"nls": "contactsApp/nls/contacts",
 	"defaultTransition": "slide",
 	"defaultView": "list",
 	"stores": {
 		"contacts": {
 			"type": "dojo/store/Memory",
+			"has": {
+				"cordova": {
+					"type": "dcordova/ContactsStore"
+				}
+			},
 			"observable": true,
 			"params": {
 				"data": [
@@ -113,8 +119,15 @@
 				"dojox/app/controllers/HistoryHash"
 			]
 		},
-		"!phone": {
-			"defaultView": "list+detail"
+		"!cordova": {
+			"dependencies": [
+				"dojo/store/Memory"
+			]
+		},
+		"cordova": {
+			"dependencies": [
+				"dcordova/ContactsStore"
+			]
 		}
 	}
 }
