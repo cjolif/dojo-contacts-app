@@ -28,8 +28,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// get the id of the displayed contact from the params
 			var id = this.params.id;
 
-			// we set the back button label to the name of the previous view (taken from its nls)
-			this.backButton.set("label", previousView.nls.contacts);
 			// we show/hide the back button based on whether we are on tablet or phone layout, as we have two panes
 			// in tablet it makes no sense to get a back button
 			this.backButton.domNode.style.display = has("phone")?"":"none";
@@ -54,7 +52,16 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// also update the edit & ok button to reference the currently displayed item
 			editButtonOptions.params.id = id;
 			var cancelButtonOptions = this.cancelButton.transitionOptions;
-			cancelButtonOptions.params.id = id;
+			if(typeof id === "undefined"){
+				// if we cancel we want to go back to main view
+				cancelButtonOptions.target = "list";
+				if(cancelButtonOptions.params.id){
+					delete cancelButtonOptions.params.id;
+				}
+			}else{
+				cancelButtonOptions.target = "detail";
+				cancelButtonOptions.params.id = id;
+			}
 			// cancel button must be shown in edit mode only
 			this.cancelButton.domNode.style.display = edit?"":"none";
 			// if visible back button must be hidden in tablet mode (does not show up in phone anyway)
@@ -122,6 +129,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				"emails": [],
 				"organizations": []
 			};
+			// we created a new id update navigation
+			var editButtonOptions = this.editButton.transitionOptions;
+			editButtonOptions.params.id = contact.id;
 			this._saveContact(contact);
 			this.loadedStores.contacts.add(contact);
 		},
@@ -130,7 +140,8 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			var value, keys;
 			// deal with name first
 			var displayName = "";
-			value = this.firstname.get("value");
+			value = this.firstname.value; //get("value");
+			console.log("create :"+value);
 			if(typeof value !== "undefined"){
 				contact.name.givenName = value;
 				displayName += value;

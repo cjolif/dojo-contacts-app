@@ -25,7 +25,6 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 				array.some(view.contacts.getChildren(), function(child){
 					if(child.id == item.id){
 						view.contacts.selectItem(child);
-						return true;
 					}
 					return false;
 				});
@@ -33,6 +32,26 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 			this.add.on("click", function(){
 				view.contacts.deselectAll();
 			});
+		},
+		beforeActivate: function(){
+			// in tablet we want one to be selected at init
+			if(!has("phone")){
+				// check if something is selected
+				var selected = array.some(this.contacts.getChildren(), function(child){
+					return child.get("selected");
+				});
+				if(!selected){
+					var item = this.contacts.getChildren()[0];
+					this.contacts.selectItem(item);
+					// transition
+					this.app.transitionToView(this.domNode, {
+						target: "detail",
+						params: {
+							id: item.id
+						}
+					});
+				}
+			}
 		}
 	};
 });
