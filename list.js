@@ -1,57 +1,33 @@
-define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/ListItem",
-	"dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin"],
-	function(declare, array, has, ListItem){
-	var ContactListItem = declare(ListItem, {
-		target: "detail",
-		clickable: true,
-		// we don't get an arrow if we are on a two panes layout (tablet)
-		noArrow: !has("phone"),
-		postMixInProperties: function(){
-			this.inherited(arguments);
-			this.transitionOptions = {
-				params: {
-					"id" : this.id
-				}
-			}
-		}
-	});
+define.amd.jQuery = true;
+define(["jquery", "dojo/when"], function ($, when){
+	$(document).bind( "mobileinit", function(){
+		// need to disable jQuery Mobile hash support that it clashes with dojox/app own support
+        $.mobile.hashListeningEnabled = false;
+		// need to disable jQuery Mobile pushState support
+        $.mobile.pushStateEnabled = false;
+    });
 
 	return {
-		ContactListItem: ContactListItem,
-		init: function(){
+		init:function (){
 			var view = this;
-			this.contacts.on("add", function(item){
-				// select the newly added element
-				array.some(view.contacts.getChildren(), function(child){
-					if(child.id == item.id){
-						view.contacts.selectItem(child);
-					}
-					return false;
-				});
-			});
-			this.add.on("click", function(){
-				view.contacts.deselectAll();
+			require(["jquerym"], function (){
+				// we need to load jQuery Mobile at init to parse the page
 			});
 		},
 		beforeActivate: function(){
-			// in tablet we want one to be selected at init
-			if(!has("phone")){
-				// check if something is selected
-				var selected = array.some(this.contacts.getChildren(), function(child){
-					return child.get("selected");
+			var view = this;
+			require(["jquerym"], function (){
+				// we should fill the jQuery Mobile list with that one
+				var html = "";
+				when(view.loadedStores.contacts.query(), function(contacts){
+					var i;
+					for(i = 0; i < contacts.length; i++){
+						html += '<li id="' + contacts[i].id + '">' + contacts[i].displayName + '</li>';
+					}
+					$(view.list).append($(html));
+					$(view.list).listview("refresh");
 				});
-				if(!selected){
-					var item = this.contacts.getChildren()[0];
-					this.contacts.selectItem(item);
-					// transition
-					this.app.transitionToView(this.domNode, {
-						target: "detail",
-						params: {
-							id: item.id
-						}
-					});
-				}
-			}
+			});
 		}
 	};
 });
