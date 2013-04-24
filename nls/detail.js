@@ -12,7 +12,8 @@ define({
 		phone: "Phone",
 		edit: "Edit",
 		cancel: "Cancel",
-		ok: "Ok"
+		ok: "Ok",
+		delete: "Delete the contact"
 	},
 	fr: true
 });

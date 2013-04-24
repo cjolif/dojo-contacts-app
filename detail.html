@@ -58,6 +58,12 @@
 						   data-dojo-props="readOnly: true, placeHolder: '${nls.mail}'" data-dojo-attach-point="mailwork">
 				</fieldset>
 			</div>
+			<div>
+				<div></div>
+				<button data-dojo-type="dojox/mobile/Button"
+						data-dojo-attach-point="deleteButton" data-dojo-attach-event="onClick: _deleteContact"
+						class="mblRedButton" style="padding: 0 10px">${nls.delete}</button>
+			</div>
 		</div>
 	</div>
 </div>

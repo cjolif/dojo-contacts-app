@@ -11,5 +11,6 @@ define({
 	phone: "Téléphone",
 	edit: "Modifier",
 	cancel: "Annuler",
-	ok: "OK"
+	ok: "OK",
+	delete: "Supprimer le contact"
 });

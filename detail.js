@@ -1,5 +1,5 @@
-define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/query", "dijit/registry", "dojox/mobile/Button",
-		"dojox/mobile/FormLayout", "dojox/mobile/TextArea"],
+define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/query", "dijit/registry",
+		"dojox/mobile/Button", "dojox/mobile/FormLayout", "dojox/mobile/TextArea"],
 	function(array, lang, has, when, query, registry){
 
 	var DATA_MAPPING = {
@@ -62,8 +62,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				cancelButtonOptions.target = "detail";
 				cancelButtonOptions.params.id = id;
 			}
-			// cancel button must be shown in edit mode only
+			// cancel button must be shown in edit mode only, same for delete button if we are not creating a new contact
 			this.cancelButton.domNode.style.display = edit?"":"none";
+			this.deleteButton.domNode.style.display = (edit&&(typeof id !== "undefined"))?"":"none";
 			// if visible back button must be hidden in tablet mode (does not show up in phone anyway)
 			if(edit && has("phone")){
 				this.backButton.domNode.style.display = "none";
@@ -168,6 +169,11 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				}
 				// TODO remove existing value?
 			}
+		},
+		_deleteContact: function(){
+			this.loadedStores.contacts.remove(this.params.id);
+			// we want to be back to list
+			this.app.transitionToView(this.domNode, { target: "list" });
 		}
 	}
 });
