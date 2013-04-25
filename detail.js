@@ -28,10 +28,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// get the id of the displayed contact from the params
 			var id = this.params.id;
 
-			// we show/hide the back button based on whether we are on tablet or phone layout, as we have two panes
-			// in tablet it makes no sense to get a back button
-			this.backButton.domNode.style.display = has("phone")?"":"none";
-
 			// are we in edit mode or not? if we are we need to slightly update the view for that
 			var edit = this.params.edit;
 			// change widgets readonly value based on that
@@ -65,10 +61,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// cancel button must be shown in edit mode only, same for delete button if we are not creating a new contact
 			this.cancelButton.domNode.style.display = edit?"":"none";
 			this.deleteButton.domNode.style.display = (edit&&(typeof id !== "undefined"))?"":"none";
-			// if visible back button must be hidden in tablet mode (does not show up in phone anyway)
-			if(edit && has("phone")){
-				this.backButton.domNode.style.display = "none";
-			}
 
 			// let's fill the form with the currently selected contact
 			// if nothing selected skip that part

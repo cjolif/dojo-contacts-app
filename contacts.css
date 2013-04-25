@@ -9,5 +9,7 @@
 		border-right:1px solid black;
 		z-index:100;
 	}
+	.backButton {
+		display: none;
+	}
 }
-
