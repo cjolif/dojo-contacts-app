@@ -15,6 +15,7 @@ This project requires the following other projects to run:
  * dojox/app
  * dojox/mobile
  * (optional, useful only if you want to build the app) util
+ * (optional, useful only to run this in a cordova app) dcordova
 
 ## Installation
 
@@ -24,6 +25,8 @@ This project requires the following other projects to run:
  * dijit
  * dojox/app
  * dojox/mobile
+ * util (optional)
+ * dcordova (optional)
 
  To install the latest master, go to the root Dojo installation directory and clone contactsApp from github
 
