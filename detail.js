@@ -1,6 +1,6 @@
-define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/query", "dijit/registry",
-		"dojox/mobile/Button", "dojox/mobile/FormLayout", "dojox/mobile/TextArea"],
-	function(array, lang, has, when, query, registry){
+define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/query", "dojo/dom-class",
+	"dijit/registry", "dojox/mobile/Button", "dojox/mobile/FormLayout", "dojox/mobile/TextArea"],
+	function(array, lang, has, when, query, domClass, registry){
 
 	var DATA_MAPPING = {
 		"phonehome": "phoneNumbers.home",
@@ -54,9 +54,11 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				if(cancelButtonOptions.params.id){
 					delete cancelButtonOptions.params.id;
 				}
+				domClass.add(this.backButton.domNode, "create");
 			}else{
 				cancelButtonOptions.target = "detail";
 				cancelButtonOptions.params.id = id;
+				domClass.remove(this.backButton.domNode, "create");
 			}
 			// cancel button must be shown in edit mode only, same for delete button if we are not creating a new contact
 			this.cancelButton.domNode.style.display = edit?"":"none";
@@ -134,7 +136,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			// deal with name first
 			var displayName = "";
 			value = this.firstname.value; //get("value");
-			console.log("create :"+value);
 			if(typeof value !== "undefined"){
 				contact.name.givenName = value;
 				displayName += value;

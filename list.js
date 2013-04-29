@@ -22,12 +22,14 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 			var view = this;
 			this.contacts.on("add", function(item){
 				// select the newly added element
-				array.some(view.contacts.getChildren(), function(child){
-					if(child.id == item.id){
-						view.contacts.selectItem(child);
-					}
-					return false;
-				});
+				if(!has("phone")){
+					array.some(view.contacts.getChildren(), function(child){
+						if(child.id == item.id){
+							view.contacts.selectItem(child);
+						}
+						return false;
+					});
+				}
 			});
 			this.add.on("click", function(){
 				view.contacts.deselectAll();
