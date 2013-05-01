@@ -111,7 +111,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 				view._createContact();
 			}else{
 				// get the contact on the store
-				var promise = this.loadedStores.contacts.get(id);
+				var promise = this.loadedStores.contacts.get(id.toString());
 				when(promise, function(contact){
 					view._saveContact(contact);
 					// save the updated item into the store
@@ -168,7 +168,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			}
 		},
 		_deleteContact: function(){
-			this.loadedStores.contacts.remove(this.params.id);
+			this.loadedStores.contacts.remove(this.params.id.toString());
 			// we want to be back to list
 			this.app.transitionToView(this.domNode, { target: "list" });
 		}
