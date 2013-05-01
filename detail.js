@@ -101,19 +101,17 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 		},
 		_saveForm: function(){
 			var id = this.params.id, view = this;
-			// get the contact on the store
-			var promise = this.loadedStores.contacts.get(id);
-			when(promise, function(contact){
-				// if there is no contact create one
-				if(!contact){
-					view._createContact();
-				}else{
-					// otherwise update it
+			if(typeof id === "undefined"){
+				view._createContact();
+			}else{
+				// get the contact on the store
+				var promise = this.loadedStores.contacts.get(id);
+				when(promise, function(contact){
 					view._saveContact(contact);
 					// save the updated item into the store
 					view.loadedStores.contacts.put(contact);
-				}
-			});
+				});
+			}
 		},
 		_createContact: function(){
 			var contact = {
@@ -135,7 +133,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/qu
 			var value, keys;
 			// deal with name first
 			var displayName = "";
-			value = this.firstname.value; //get("value");
+			value = this.firstname.get("value");
 			if(typeof value !== "undefined"){
 				contact.name.givenName = value;
 				displayName += value;
