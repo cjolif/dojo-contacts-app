@@ -26,7 +26,8 @@
 			"type": "dojo/store/Memory",
 			"has": {
 				"cordova": {
-					"type": "dcordova/ContactsStore"
+					"type": "dcordova/ContactsStore",
+					"params": { "displayName": true }
 				}
 			},
 			"observable": true,
