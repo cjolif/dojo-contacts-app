@@ -2,7 +2,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 	"dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin"],
 	function(declare, array, has, ListItem){
 	var ContactListItem = declare(ListItem, {
-		target: "detail",
+		target: "details",
 		clickable: true,
 		// we don't get an arrow if we are on a two panes layout (tablet)
 		noArrow: !has("phone"),
@@ -47,7 +47,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 					this.contacts.selectItem(item);
 					// transition
 					this.app.transitionToView(this.domNode, {
-						target: "detail",
+						target: "details",
 						params: {
 							id: item.id
 						}
