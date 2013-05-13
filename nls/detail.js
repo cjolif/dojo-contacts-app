@@ -13,7 +13,7 @@ define({
 		edit: "Edit",
 		cancel: "Cancel",
 		ok: "Ok",
-		delete: "Delete the contact"
+		remove: "Delete the contact"
 	},
 	fr: true
 });
