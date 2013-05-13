@@ -1,5 +1,5 @@
 // we use 'define' and not 'require' to workaround Dojo build system limitation that prevents from making of this file
-// a layer if it using 'require'
+// a layer if it using 'require' (see: https://bugs.dojotoolkit.org/ticket/16905)
 define(["dojo/sniff", "dojo/request", "dojo/json", "dojo/text!contactsApp/contacts.json", "dojox/app/main", "dojox/mobile/common"],
 	function(has, request, json, config, Application, common){
 
