@@ -7,16 +7,16 @@
 				class="backButton">${nls.contacts}</button>
 		<button data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-attach-point="cancelButton"
 				style="position: absolute; left: 0; display: 'none'"
-				data-dojo-props="target: 'detail', transitionOptions: { params: { edit: false } }">${nls.cancel}</button>
+				data-dojo-props="target: 'details', transitionOptions: { params: { edit: false } }">${nls.cancel}</button>
 		${nls.details}
 		<button data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-attach-point="editButton"
 				style="position: absolute; right: 0"
-				data-dojo-props="target: 'detail', transitionOptions: { params: { } }"></button>
+				data-dojo-props="target: 'details', transitionOptions: { params: { } }"></button>
 	</div>
 	<div data-dojo-type="dojox/mobile/ScrollableView">
 		<div data-dojo-type="dojox/mobile/FormLayout">
 			<div>
-				<label for="company">${nls.name}</label>
+				<label for="firstname">${nls.name}</label>
 				<fieldset>
 					<input id="firstname" name="firstname" data-dojo-type="dojox/mobile/TextArea"
 						   data-dojo-props="readOnly: true, placeHolder: '${nls.first}'" data-dojo-attach-point="firstname">

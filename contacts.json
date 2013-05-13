@@ -93,8 +93,8 @@
 	},
 	"views": {
 		"list": {
-			"controller": "contactsApp/list",
-			"template": "contactsApp/list.html",
+			"controller": "contactsApp/views/list",
+			"template": "contactsApp/views/list.html",
 			"nls": "contactsApp/nls/list",
 			"has": {
 				"!phone": {
@@ -102,10 +102,10 @@
 				}
 			}
 		},
-		"detail": {
-			"controller": "contactsApp/detail",
-			"template": "contactsApp/detail.html",
-			"nls": "contactsApp/nls/detail"
+		"details": {
+			"controller": "contactsApp/views/details",
+			"template": "contactsApp/views/details.html",
+			"nls": "contactsApp/nls/details"
 		}
 	},
 	"has": {
