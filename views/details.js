@@ -70,7 +70,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 					delete cancelButtonOptions.params.id;
 				}
 			}else{
-				cancelButtonOptions.target = "detail";
+				cancelButtonOptions.target = "details";
 				cancelButtonOptions.params.id = id;
 			}
 			// hide back button in edit mode
