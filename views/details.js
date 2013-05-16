@@ -37,7 +37,8 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			// get the id of the displayed contact from the params if we don't have a contact
 			// or from the contact if we have one
 			if(contact){
-				this.params.id = contact.id;
+				// need to use contact instead of contact.id for a memory store, because it returns the id from a put()
+				this.params.id = contact.id || contact;
 			}
 			var id = this.params.id;
 
@@ -76,8 +77,10 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			// hide back button in edit mode
 			if(edit){
 				domClass.add(this.backButton.domNode, "hidden");
+				domClass.remove(this.formLayout.domNode, "mblFormLayoutReadOnly");
 			}else{
 				domClass.remove(this.backButton.domNode, "hidden");
+				domClass.add(this.formLayout.domNode, "mblFormLayoutReadOnly");
 			}
 			// cancel button must be shown in edit mode only, same for delete button if we are not creating a new contact
 			this.cancelButton.domNode.style.display = edit?"":"none";
@@ -102,6 +105,14 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				}else{
 					view.company.set("value", null);
 				}
+				// hide empty fields when not in edit mode
+				if(view.company.domNode.parentNode.parentNode){
+					if(!view.company.get("value") && !edit){
+						domClass.add(view.company.domNode.parentNode.parentNode, "hidden");
+					}else{
+						domClass.remove(view.company.domNode.parentNode.parentNode, "hidden");
+					}
+				}
 				// reset binding fields
 				for(var key in DATA_MAPPING){
 					view[key].set("value", null);
@@ -117,6 +128,17 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 						// TODO deal with case where we don't support a particular field
 						view["mail"+mail.type].set("value",  mail.value);
 					});
+					// hide empty fields when not in edit mode
+					for(var key in DATA_MAPPING){
+						value = view[key].get("value");
+						if(view[key].domNode.parentNode.parentNode){
+							if(!value && !edit){
+								domClass.add(view[key].domNode.parentNode.parentNode, "hidden");
+							}else{
+								domClass.remove(view[key].domNode.parentNode.parentNode, "hidden");
+							}
+						}
+					}
 				}
 			});
 		},
@@ -177,6 +199,10 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				}
 				contact.organizations[0].name = value;
 			}
+			// hide empty fields when not in edit mode
+			if(!value && this.company.domNode.parentNode.parentNode){
+				domClass.add(this.company.domNode.parentNode.parentNode, "hidden");
+			}
 			for(var key in DATA_MAPPING){
 				value = this[key].get("value");
 				if(typeof value !== "undefined"){
@@ -186,6 +212,10 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 						contact[keys[0]] = [];
 					}
 					getStoreField(contact[keys[0]], keys[1]).value = value;
+				}
+				// hide empty fields when not in edit mode
+				if(!value && this[key].domNode.parentNode.parentNode){
+						domClass.add(this[key].domNode.parentNode.parentNode, "hidden");
 				}
 				// TODO remove existing value?
 			}
