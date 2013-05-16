@@ -14,7 +14,7 @@
 				data-dojo-props="target: 'details', transitionOptions: { params: { } }"></button>
 	</div>
 	<div data-dojo-type="dojox/mobile/ScrollableView">
-		<div data-dojo-type="dojox/mobile/FormLayout">
+		<div data-dojo-type="dojox/mobile/FormLayout" data-dojo-attach-point="formLayout">
 			<div>
 				<label for="firstname">${nls.name}</label>
 				<fieldset>
@@ -28,7 +28,7 @@
 				<label for="company">${nls.company}</label>
 				<fieldset>
 					<input id="company" name="company" data-dojo-type="dojox/mobile/TextArea"
-						   data-dojo-props="readOnly: true" data-dojo-attach-point="company">
+						   data-dojo-props="readOnly: true, placeHolder: '${nls.company}'" data-dojo-attach-point="company">
 				</fieldset>
 			</div>
 			<div>

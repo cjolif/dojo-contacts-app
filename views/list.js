@@ -20,6 +20,16 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 		ContactListItem: ContactListItem,
 		init: function(){
 			var view = this;
+			if(has("cordova")){
+				this.contacts.on("complete", function(){
+					view._completed = true;
+					// we force back activation now that the list has been completed
+			   	 view.beforeActivate();
+				});
+			}else{
+				view._completed = true;
+			}
+
 			this.contacts.on("add", function(item){
 				// select the newly added element
 				if(!has("phone")){
@@ -54,11 +64,6 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/has", "dojox/mobile/List
 					});
 				}
 			}
-		},
-		_listCompleted: function(){
-			this._completed = true;
-			// we force back activation now that the list has been completed
-			this.beforeActivate();
 		}
 	};
 });
