@@ -37,8 +37,7 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			// get the id of the displayed contact from the params if we don't have a contact
 			// or from the contact if we have one
 			if(contact){
-				// need to use contact instead of contact.id for a memory store, because it returns the id from a put()
-				this.params.id = contact.id || contact;
+				this.params.id = contact.id;
 			}
 			var id = this.params.id;
 
@@ -153,8 +152,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				when(promise, function(contact){
 					view._saveContact(contact);
 					// save the updated item into the store
-					when(view.loadedStores.contacts.put(contact), function(contact){
-						view._savePromise.resolve(contact);
+					when(view.loadedStores.contacts.put(contact), function(savedContact){
+						// some store do return a contact some other an ID
+						view._savePromise.resolve(savedContact == id ? contact:savedContact);
 					});
 				});
 			}
@@ -170,8 +170,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			};
 			var view = this;
 			this._saveContact(contact);
-			when(this.loadedStores.contacts.add(contact), function(contact){
-				view._savePromise.resolve(contact);
+			when(this.loadedStores.contacts.add(contact), function(savedContact){
+				// some store do return a contact some other an ID
+				view._savePromise.resolve(savedContact == contact.id ? contact : savedContact);
 			});
 		},
 		_saveContact: function(contact){
