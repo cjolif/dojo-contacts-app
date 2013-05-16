@@ -186,9 +186,11 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			}
 		},
 		_deleteContact: function(){
-			this.loadedStores.contacts.remove(this.params.id.toString());
-			// we want to be back to list
-			this.app.transitionToView(this.domNode, { target: "list" });
+			var view = this;
+			when(this.loadedStores.contacts.remove(this.params.id.toString()), function(){
+				// we want to be back to list
+				view.app.transitionToView(view.domNode, { target: "list" });
+			});
 		}
 	}
 });
