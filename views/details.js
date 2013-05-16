@@ -120,12 +120,18 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 					// set each phone number to the corresponding form field
 					array.forEach(contact.phoneNumbers, function(number){
 						// TODO deal with case where we don't support a particular field
-						view["phone"+number.type].set("value",  number.value);
+						var phonekey = "phone"+number.type;
+						if(view[phonekey]){
+							view[phonekey].set("value",  number.value);
+						}
 					});
 					// set each mail field to the corresponding form field
 					array.forEach(contact.emails, function(mail){
 						// TODO deal with case where we don't support a particular field
-						view["mail"+mail.type].set("value",  mail.value);
+						var mailkey = "mail"+mail.type;
+						if(view[mailkey]){
+							view[mailkey].set("value",  mail.value);
+						}
 					});
 					// hide empty fields when not in edit mode
 					for(var key in DATA_MAPPING){
