@@ -170,7 +170,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 			contact.displayName = displayName;
 			value = this.company.get("value");
 			if(typeof value !== "undefined"){
-				if(contact.organizations.length == 0){
+				if(!contact.organizations){
+					contact.organizations = [{}];
+				}else if(contact.organizations.length == 0){
 					contact.organizations.push({});
 				}
 				contact.organizations[0].name = value;
@@ -180,6 +182,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				if(typeof value !== "undefined"){
 					// there is a value, save it
 					keys = DATA_MAPPING[key].split(".");
+					if(contact[keys[0]] == null){
+						contact[keys[0]] = [];
+					}
 					getStoreField(contact[keys[0]], keys[1]).value = value;
 				}
 				// TODO remove existing value?
