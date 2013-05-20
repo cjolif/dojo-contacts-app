@@ -104,14 +104,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				}else{
 					view.company.set("value", null);
 				}
-				// hide empty fields when not in edit mode
-				if(view.company.domNode.parentNode.parentNode){
-					if(!view.company.get("value") && !edit){
-						domClass.add(view.company.domNode.parentNode.parentNode, "hidden");
-					}else{
-						domClass.remove(view.company.domNode.parentNode.parentNode, "hidden");
-					}
-				}
 				// reset binding fields
 				for(var key in DATA_MAPPING){
 					view[key].set("value", null);
@@ -119,24 +111,23 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				if(contact){
 					// set each phone number to the corresponding form field
 					array.forEach(contact.phoneNumbers, function(number){
-						// TODO deal with case where we don't support a particular field
-						view["phone"+number.type].set("value",  number.value);
+						// TODO for now we just skip non supported fields, ideally we should have a generic mechanism to deal with them
+						var phonekey = "phone"+number.type;
+						if(view[phonekey]){
+							view[phonekey].set("value",  number.value);
+						}
 					});
 					// set each mail field to the corresponding form field
 					array.forEach(contact.emails, function(mail){
-						// TODO deal with case where we don't support a particular field
-						view["mail"+mail.type].set("value",  mail.value);
+						// TODO for now we just skip non supported fields, ideally we should have a generic mechanism to deal with them
+						var mailkey = "mail"+mail.type;
+						if(view[mailkey]){
+							view[mailkey].set("value",  mail.value);
+						}
 					});
 					// hide empty fields when not in edit mode
-					for(var key in DATA_MAPPING){
-						value = view[key].get("value");
-						if(view[key].domNode.parentNode.parentNode){
-							if(!value && !edit){
-								domClass.add(view[key].domNode.parentNode.parentNode, "hidden");
-							}else{
-								domClass.remove(view[key].domNode.parentNode.parentNode, "hidden");
-							}
-						}
+					if(!edit){
+						view._hideEmptyFields(view);
 					}
 				}
 			});
@@ -200,10 +191,6 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 				}
 				contact.organizations[0].name = value;
 			}
-			// hide empty fields when not in edit mode
-			if(!value && this.company.domNode.parentNode.parentNode){
-				domClass.add(this.company.domNode.parentNode.parentNode, "hidden");
-			}
 			for(var key in DATA_MAPPING){
 				value = this[key].get("value");
 				if(typeof value !== "undefined"){
@@ -214,12 +201,20 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 					}
 					getStoreField(contact[keys[0]], keys[1]).value = value;
 				}
-				// hide empty fields when not in edit mode
-				if(!value && this[key].domNode.parentNode.parentNode){
-						domClass.add(this[key].domNode.parentNode.parentNode, "hidden");
-				}
 				// TODO remove existing value?
 			}
+		},
+		_hideEmptyFields: function(view){
+			query(".readOnlyHidden", view.formLayout.domNode).forEach(function(node){
+				domClass.remove(node, "readOnlyHidden");
+			});
+			query("input", view.formLayout.domNode).forEach(function(node){
+				var val = registry.byNode(node).get("value");
+				if(!val && node.parentNode.parentNode && node.id !== "firstname" && node.id !== "lastname"){
+					domClass.add(node.parentNode.parentNode, "readOnlyHidden");
+				}
+			});
+
 		},
 		_deleteContact: function(){
 			var view = this;
