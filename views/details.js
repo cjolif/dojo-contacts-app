@@ -126,7 +126,9 @@ define(["dojo/_base/array", "dojo/_base/lang", "dojo/has", "dojo/when", "dojo/De
 						}
 					});
 					// hide empty fields when not in edit mode
-					view._hideEmptyFields(view);
+					if(!edit){
+						view._hideEmptyFields(view);
+					}
 				}
 			});
 		},
