@@ -24,6 +24,10 @@
 	color: gray;
 }
 
+.mblFormLayoutReadOnly .readOnlyHidden {
+	display: none !important;
+}
+
 .mblFormLayoutReadOnly .mblTextArea {
 	background-color: rgba(0, 0, 0, 0);
 /*	background-color: #d3d3d3; */
