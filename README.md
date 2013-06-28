@@ -38,7 +38,7 @@ You can build the contacts application by running the following command from uti
 
 ./build.sh --profile ../../contactsApp/build/build.profile.js
   --appConfigFile ../../contactsApp/contacts.json
-  --appConfigLayer=contacts/contactsApp
+  --appConfigLayer=contactsApp/contacts
 
 This will make sure all the files needed by this application are bundled into compressed layers. The result can be
 found in contactsApp-release/contactsApp
