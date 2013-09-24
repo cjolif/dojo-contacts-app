@@ -26,7 +26,7 @@ This project requires the following other projects to run:
  * dojox/app
  * dojox/mobile
  * util (optional)
- * dcordova (optional)
+ * dcordova (optional, [version tag: dojo1.9.0](https://github.com/ibm-dojo/dcordova/releases/tag/dojo1.9.0))
 
  To install the latest master, go to the root Dojo installation directory and clone contactsApp from github
 
